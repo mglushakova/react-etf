@@ -4,10 +4,13 @@ import { PortfoliosContext } from '../context';
 import { useParams } from 'react-router-dom';
 import TitleForm from '../components/TitleForm';
 import MyModal from '../components/UI/modal/MyModal';
+import MyButton from '../components/UI/button/MyButton';
+import SecurityForm from '../components/SecurityForm';
 
 function PortfolioIdPage() {
   const [modal, setModal] = useState(false);
   const [portfolio, setPortfolio] = useState({});
+  const [modalContent, setModalContent] = useState('titleForm');
 
   let params = useParams();
   const { portfolios, setPortfolios } = useContext(PortfoliosContext);
@@ -37,6 +40,15 @@ function PortfolioIdPage() {
     setModal(false);
   };
 
+  const addSecurity = (security) => {
+    console.log(security);
+  };
+
+  const onAddSecurityButton = () => {
+    setModalContent('securityForm');
+    setModal(true);
+  };
+
   return (
     <div>
       <h1 className="table-header">
@@ -56,8 +68,17 @@ function PortfolioIdPage() {
         </button>
       </h1>
       <PortfolioTable portfolio={portfolio} />
+      <MyButton onClick={onAddSecurityButton}>Добавить</MyButton>
       <MyModal visible={modal} setVisible={setModal}>
-        <TitleForm title={portfolio.title} editTitle={editTitle} />
+        {(() => {
+          if (modalContent === 'titleForm') {
+            return <TitleForm title={portfolio.title} editTitle={editTitle} />;
+          } else if (modalContent === 'securityForm') {
+            return <SecurityForm addSecurity={addSecurity} />;
+          } else {
+            return <div>empty modal</div>;
+          }
+        })()}
       </MyModal>
     </div>
   );

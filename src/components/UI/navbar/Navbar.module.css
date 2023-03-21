@@ -16,8 +16,8 @@
 }
 
 .item a {
-  display: block;
-  padding: 15px 40px;
+  display: flex;
+  padding: 15px 40px 15px 15px;
   width: 100%;
   height: 100%;
   color: inherit;
@@ -29,6 +29,17 @@
 .item a:hover,
 .item a:focus {
   background-color: #d7edff;
+}
+
+.item a svg {
+  margin-right: 10px;
+  fill: #84919a;
+  transition: fill 0.4s ease;
+}
+
+.item a:hover svg,
+.item a:focus svg {
+  fill: #4094f7;
 }
 
 .active {

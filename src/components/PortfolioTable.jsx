@@ -3,6 +3,7 @@ import TableRow from './TableRow';
 
 function PortfolioTable({ portfolio }) {
   const [totalPortfolioCost, setTotalPortfolioCost] = useState(0);
+
   useEffect(() => {
     if (Object.entries(portfolio).length === 0) return;
     setTotalPortfolioCost(
@@ -11,6 +12,7 @@ function PortfolioTable({ portfolio }) {
       }, 0)
     );
   }, [portfolio.securities]);
+
   return (
     <div>
       <table className="portfolio-table">

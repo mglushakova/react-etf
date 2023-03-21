@@ -124,3 +124,9 @@
 .portfolio__title-icon {
   fill: #84919a;
 }
+
+.input-label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+}

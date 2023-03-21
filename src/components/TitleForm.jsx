@@ -13,6 +13,7 @@ function TitleForm({ title, editTitle }) {
     event.preventDefault();
     editTitle(value);
   };
+
   return (
     <form>
       <MyInput
