@@ -1,4 +1,4 @@
-import { React } from 'react';
+import { React, useEffect, useState } from 'react';
 import './styles/App.css';
 import { BrowserRouter } from 'react-router-dom';
 import AppRouter from './components/AppRouter';
@@ -6,9 +6,9 @@ import Navbar from './components/UI/navbar/Navbar';
 import { PortfoliosContext } from './context';
 
 function App() {
-  const portfolios = [
+  const [portfolios, setPortfolios] = useState([
     {
-      id: 23423542352,
+      id: 1,
       title: 'Тестовый портфель',
       securities: [
         {
@@ -39,7 +39,7 @@ function App() {
     },
 
     {
-      id: 34534534534,
+      id: 2,
       title: 'Тестовый портфель2',
       securities: [
         {
@@ -68,12 +68,18 @@ function App() {
         },
       ],
     },
-  ];
+  ]);
+
+  useEffect(() => {
+    const savedPortfolios = localStorage.getItem('portfolios');
+    savedPortfolios && setPortfolios(JSON.parse(savedPortfolios));
+  }, []);
 
   return (
     <PortfoliosContext.Provider
       value={{
         portfolios,
+        setPortfolios,
       }}>
       <BrowserRouter>
         <Navbar />

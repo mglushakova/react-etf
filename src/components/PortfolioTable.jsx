@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import TableRow from './TableRow';
 
 function PortfolioTable({ portfolio }) {
-  let totalPortfolioCost = 0;
+  const [totalPortfolioCost, setTotalPortfolioCost] = useState(0);
   useEffect(() => {
-    totalPortfolioCost = portfolio.reduce((acc, item) => {
-      return acc + item.currentValue;
-    }, 0);
-  }, [portfolio]);
+    if (Object.entries(portfolio).length === 0) return;
+    setTotalPortfolioCost(
+      portfolio.securities.reduce((acc, item) => {
+        return acc + item.currentValue;
+      }, 0)
+    );
+  }, [portfolio.securities]);
   return (
     <div>
       <table className="portfolio-table">
@@ -20,13 +23,14 @@ function PortfolioTable({ portfolio }) {
           </tr>
         </thead>
         <tbody>
-          {portfolio.map((security) => (
-            <TableRow
-              security={security}
-              totalPortfolioCost={totalPortfolioCost}
-              key={security.id}
-            />
-          ))}
+          {Object.entries(portfolio).length !== 0 &&
+            portfolio.securities.map((security) => (
+              <TableRow
+                security={security}
+                totalPortfolioCost={totalPortfolioCost}
+                key={security.id}
+              />
+            ))}
         </tbody>
       </table>
     </div>

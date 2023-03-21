@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { PortfoliosContext } from '../context';
 
 function PortfolioList() {
   const { portfolios } = useContext(PortfoliosContext);
-  const navigate = useNavigate();
 
   //securities.columns=secid,name,group&
   // useEffect(() => {
@@ -27,13 +26,17 @@ function PortfolioList() {
   return (
     <div className="App container">
       <ul className="portfolios-list">
-        {portfolios.map((portfolio) => (
-          <li className="portfolios-item" key={portfolio.id}>
-            <a onClick={() => navigate(`/portfolios/${portfolio.id}`)}>
-              {portfolio.title}
-            </a>
-          </li>
-        ))}
+        {Object.entries(portfolios).length !== 0 &&
+          portfolios.map((portfolio) => (
+            <li className="portfolios-item" key={portfolio.id}>
+              <Link
+                to={{
+                  pathname: '/portfolios/' + portfolio.id,
+                }}>
+                {portfolio.title}
+              </Link>
+            </li>
+          ))}
       </ul>
     </div>
   );
